@@ -36,7 +36,7 @@ jobs:
       - run:
           name: Delete VMs
           command: |
-            if [ "${CIRCLE_BRANCH}" == "master" ] || ["${EXISTING_DEPLOYMENT_MANAGER}" != $DEPLOYMENT_MANAGER_NAME ]; then
+            if [ "${CIRCLE_BRANCH}" == "master" ] || ["${EXISTING_DEPLOYMENT_MANAGER}" == $DEPLOYMENT_MANAGER_NAME ]; then
               ./delete.sh
             fi
       # Step 2: Create virtual machines
