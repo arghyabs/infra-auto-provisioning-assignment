@@ -4,17 +4,17 @@ executorType: machine
 jobs:
   build:
     steps:
-      - type: shell
       # Step 1: Delete virtual machines
       - run:
           name: Delete VMs
           command: |
+            chmod +x ~/delete.sh 
             if [ "${CIRCLE_BRANCH}" == "master" ]; then
               ./delete.sh
             fi
       # Step 2: Create virtual machines
       - run:
-          name: Delete VMs
+          name: Create VMs
           command: |
             if [ "${CIRCLE_BRANCH}" == "master" ]; then
               ./create.sh
