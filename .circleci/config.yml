@@ -3,15 +3,13 @@ version: 2
 executorType: machine
 jobs:
   build:
-    environment:
-      BASH_ENV: "~/.bashrc"
     steps:
       # Step 1: Delete virtual machines
       - run:
           name: Delete VMs
           command: |
             if [ "${CIRCLE_BRANCH}" == "master" ]; then
-              ./delete.sh
+              ./delete.sh | sh
             fi
       # Step 2: Create virtual machines
       - run:
