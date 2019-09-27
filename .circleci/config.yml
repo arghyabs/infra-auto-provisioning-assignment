@@ -3,11 +3,12 @@ version: 2
 executorType: machine
 jobs:
   build:
-    shell: /bin/bash
     steps:
+      - type: shell
       # Step 1: Delete virtual machines
       - run:
           name: Delete VMs
+          shell: /bin/bash
           command: |
             if [ "${CIRCLE_BRANCH}" == "master" ]; then
               ./delete.sh
