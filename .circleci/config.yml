@@ -25,7 +25,7 @@ jobs:
             gcloud config set compute/zone ${GOOGLE_COMPUTE_ZONE}
             EXISTING_DEPLOYMENT_MANAGER=$(gcloud deployment-manager deployments list --format="value(name)" --filter="name=$DEPLOYMENT_MANAGER_NAME")
             echo ${EXISTING_DEPLOYMENT_MANAGER}
-            if [ "${EXISTING_DEPLOYMENT_MANAGER}" == $DEPLOYMENT_MANAGER__NAME ]; then
+            if [ "${EXISTING_DEPLOYMENT_MANAGER}" = "${DEPLOYMENT_MANAGER__NAME}" ]; then
               ./delete.sh
             fi
             ./create.sh
