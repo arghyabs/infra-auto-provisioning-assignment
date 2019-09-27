@@ -1,8 +1,8 @@
 # Shell Script CircleCI 2.0 configuration file
 version: 2
+executorType: machine
 jobs:
   build:
-    machine:
     steps:
       # Step 1: Delete virtual machines
       - run:
