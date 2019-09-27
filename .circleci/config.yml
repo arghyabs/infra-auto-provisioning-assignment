@@ -10,6 +10,7 @@ jobs:
       GOOGLE_PROJECT_ID: provisioning-253609
       GOOGLE_COMPUTE_ZONE: us-central1-b
       GOOGLE_CLUSTER_NAME: cluster-1
+      DEPLOYMENT_MANAGER_NAME: deployment-with-2-vms
     steps:
       - checkout
       - run:
@@ -21,8 +22,8 @@ jobs:
             gcloud auth activate-service-account --key-file=${HOME}/gcloud-service-key.json
             gcloud config set project ${GOOGLE_PROJECT_ID}
             gcloud config set compute/zone ${GOOGLE_COMPUTE_ZONE}
-            #EXISTING_CLUSTER=$(gcloud container clusters list --format="value(name)" --filter="name=$GOOGLE_CLUSTER_NAME")
-            #if [ "${EXISTING_CLUSTER}" != $GOOGLE_CLUSTER_NAME ]
+            EXISTING_DEPLOYMENT_MANAGER=$(gcloud deployment-manager deployments list --format="value(name)" --filter="name=$DEPLOYMENT_MANAGER_NAME")
+            # if [ "${EXISTING_}" != $GOOGLE_CLUSTER_NAME ]
             #then
               # Create cluster if it doesn't already exist
               #  gcloud --quiet container clusters create $GOOGLE_CLUSTER_NAME --num-nodes=1
@@ -35,7 +36,7 @@ jobs:
       - run:
           name: Delete VMs
           command: |
-            if [ "${CIRCLE_BRANCH}" == "master" ]; then
+            if [ "${CIRCLE_BRANCH}" == "master" ] || ["${EXISTING_DEPLOYMENT_MANAGER}" != $DEPLOYMENT_MANAGER_NAME ]; then
               ./delete.sh
             fi
       # Step 2: Create virtual machines
