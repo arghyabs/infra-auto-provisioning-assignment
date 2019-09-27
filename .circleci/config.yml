@@ -6,6 +6,7 @@ jobs:
     steps:
       # Step 1: Delete virtual machines
       - run:
+          shell: "/bin/bash -eo pipefail"
           name: Delete VMs
           command: |
             source .bashrc 
