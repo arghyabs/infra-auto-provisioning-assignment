@@ -21,16 +21,16 @@ jobs:
             gcloud auth activate-service-account --key-file=${HOME}/gcloud-service-key.json
             gcloud config set project ${GOOGLE_PROJECT_ID}
             gcloud config set compute/zone ${GOOGLE_COMPUTE_ZONE}
-            EXISTING_CLUSTER=$(gcloud container clusters list --format="value(name)" --filter="name=$GOOGLE_CLUSTER_NAME")
-            if [ "${EXISTING_CLUSTER}" != $GOOGLE_CLUSTER_NAME ]
-            then
+            #EXISTING_CLUSTER=$(gcloud container clusters list --format="value(name)" --filter="name=$GOOGLE_CLUSTER_NAME")
+            #if [ "${EXISTING_CLUSTER}" != $GOOGLE_CLUSTER_NAME ]
+            #then
               # Create cluster if it doesn't already exist
-              gcloud --quiet container clusters create $GOOGLE_CLUSTER_NAME --num-nodes=1
-            else
-              gcloud --quiet container clusters get-credentials $GOOGLE_CLUSTER_NAME
-            fi
+              #  gcloud --quiet container clusters create $GOOGLE_CLUSTER_NAME --num-nodes=1
+              #else
+              #gcloud --quiet container clusters get-credentials $GOOGLE_CLUSTER_NAME
+              #fi
             
-            gcloud --quiet container clusters get-credentials ${GOOGLE_CLUSTER_NAME}
+            #gcloud --quiet container clusters get-credentials ${GOOGLE_CLUSTER_NAME}
       # Step 1: Delete virtual machines
       - run:
           name: Delete VMs
