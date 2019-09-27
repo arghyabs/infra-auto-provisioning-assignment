@@ -5,7 +5,6 @@ jobs:
   build:
     steps:
       - type: shell
-          shell: /bin/bash
       # Step 1: Delete virtual machines
       - run:
           name: Delete VMs
