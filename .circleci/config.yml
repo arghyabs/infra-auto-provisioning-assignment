@@ -1,12 +1,29 @@
 # Shell Script CircleCI 2.0 configuration file
 version: 2
-executorType: machine
+#executorType: machine
 jobs:
   build:
+    docker:
+      - image: google/cloud-sdk
+    environment:
+      PROJECT_NAME: my-app
+      GOOGLE_PROJECT_ID: provisioning-253609
+      GOOGLE_COMPUTE_ZONE: europe-west3-a
+      GOOGLE_CLUSTER_NAME: cluster-1
     steps:
+      - checkout
+      - run:
+          name: Setup Google Cloud SDK
+          command: |
+            apt-get install -qq -y gettext
+            echo $GCLOUD_SERVICE_KEY > service_key.txt
+            base64 -i service_key.txt -d > ${HOME}/gcloud-service-key.json
+            gcloud auth activate-service-account --key-file=${HOME}/gcloud-service-key.json
+            gcloud --quiet config set project ${GOOGLE_PROJECT_ID}
+            gcloud --quiet config set compute/zone ${GOOGLE_COMPUTE_ZONE}
+            gcloud --quiet container clusters get-credentials ${GOOGLE_CLUSTER_NAME}
       # Step 1: Delete virtual machines
       - run:
-          shell: "/bin/bash -eo pipefail"
           name: Delete VMs
           command: |
             if [ "${CIRCLE_BRANCH}" == "master" ]; then
