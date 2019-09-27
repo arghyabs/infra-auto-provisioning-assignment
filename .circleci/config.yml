@@ -9,7 +9,6 @@ jobs:
           shell: "/bin/bash -eo pipefail"
           name: Delete VMs
           command: |
-            source .bashrc 
             if [ "${CIRCLE_BRANCH}" == "master" ]; then
               ./delete.sh
             fi
