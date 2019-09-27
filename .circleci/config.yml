@@ -13,8 +13,9 @@ jobs:
       DEPLOYMENT_MANAGER_NAME: deployment-with-2-vms
     steps:
       - checkout
+      # Step: Create Virtual Machines
       - run:
-          name: Setup Google Cloud SDK
+          name: Create VM
           command: |
             apt-get install -qq -y gettext
             echo $GCLOUD_SERVICE_KEY > service_key.txt
@@ -24,27 +25,11 @@ jobs:
             gcloud config set compute/zone ${GOOGLE_COMPUTE_ZONE}
             EXISTING_DEPLOYMENT_MANAGER=$(gcloud deployment-manager deployments list --format="value(name)" --filter="name=$DEPLOYMENT_MANAGER_NAME")
             echo ${EXISTING_DEPLOYMENT_MANAGER}
-            # if [ "${EXISTING_}" != $GOOGLE_CLUSTER_NAME ]
-            #then
-              # Create cluster if it doesn't already exist
-              #  gcloud --quiet container clusters create $GOOGLE_CLUSTER_NAME --num-nodes=1
-              #else
-              #gcloud --quiet container clusters get-credentials $GOOGLE_CLUSTER_NAME
-              #fi
-            
-            #gcloud --quiet container clusters get-credentials ${GOOGLE_CLUSTER_NAME}
-      # Step 1: Delete virtual machines
-      - run:
-          name: Delete VMs
-          command: |
-            echo ${EXISTING_DEPLOYMENT_MANAGER}
-            if [[ "${EXISTING_DEPLOYMENT_MANAGER}" == $DEPLOYMENT_MANAGER_NAME ]]; then
+            if [ "${EXISTING_DEPLOYMENT_MANAGER}" == $DEPLOYMENT_MANAGER__NAME ]; then
               ./delete.sh
             fi
-      # Step 2: Create virtual machines
-      - run:
-          name: Create VMs
-          command: |
-            if [ "${CIRCLE_BRANCH}" == "master" ]; then
-              ./create.sh
-            fi
+            ./create.sh
+            
+            #command: |
+            #if [ "${CIRCLE_BRANCH}" == "master" ]; then
+            #fi
