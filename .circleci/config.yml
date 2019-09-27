@@ -3,9 +3,7 @@ version: 2
 executorType: machine
 jobs:
   build:
-    shell: /bin/bash -eo pipefail
-    environment:
-      - BASH_ENV: /etc/profile
+    shell: /bin/bash
     steps:
       # Step 1: Delete virtual machines
       - run:
