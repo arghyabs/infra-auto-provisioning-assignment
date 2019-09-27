@@ -23,6 +23,7 @@ jobs:
             gcloud config set project ${GOOGLE_PROJECT_ID}
             gcloud config set compute/zone ${GOOGLE_COMPUTE_ZONE}
             EXISTING_DEPLOYMENT_MANAGER=$(gcloud deployment-manager deployments list --format="value(name)" --filter="name=$DEPLOYMENT_MANAGER_NAME")
+            echo ${EXISTING_DEPLOYMENT_MANAGER}
             # if [ "${EXISTING_}" != $GOOGLE_CLUSTER_NAME ]
             #then
               # Create cluster if it doesn't already exist
