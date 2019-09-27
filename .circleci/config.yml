@@ -3,6 +3,8 @@ version: 2
 executorType: machine
 jobs:
   build:
+    environment:
+      BASH_ENV: "~/.bashrc"
     steps:
       # Step 1: Delete virtual machines
       - run:
