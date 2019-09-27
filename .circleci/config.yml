@@ -3,13 +3,16 @@ version: 2
 executorType: machine
 jobs:
   build:
+    shell: /bin/sh -leo pipefail
+    environment:
+      - BASH_ENV: /etc/profile
     steps:
       # Step 1: Delete virtual machines
       - run:
           name: Delete VMs
           command: |
             if [ "${CIRCLE_BRANCH}" == "master" ]; then
-              ./delete.sh | sh
+              ./delete.sh
             fi
       # Step 2: Create virtual machines
       - run:
