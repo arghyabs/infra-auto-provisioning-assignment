@@ -7,13 +7,13 @@ jobs:
       - run:
           name: Delete VMs
           command: |
-	    if [ "${CIRCLE_BRANCH}" == "master" ]; then
+            if [ "${CIRCLE_BRANCH}" == "master" ]; then
               ./delete.sh
             fi
       # Step 2: Create virtual machines
       - run:
           name: Delete VMs
           command: |
-	    if [ "${CIRCLE_BRANCH}" == "master" ]; then
+            if [ "${CIRCLE_BRANCH}" == "master" ]; then
               ./create.sh
             fi
