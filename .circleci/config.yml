@@ -3,7 +3,7 @@ version: 2
 executorType: machine
 jobs:
   build:
-    shell: /bin/sh -leo pipefail
+    shell: /bin/sh -eo pipefail
     environment:
       - BASH_ENV: /etc/profile
     steps:
